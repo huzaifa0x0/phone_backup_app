@@ -1,0 +1,15 @@
+<resources>
+    <dimen name="card_radius">12dp</dimen>
+    <dimen name="card_elevation">2dp</dimen>
+    <dimen name="margin_horizontal">8dp</dimen>
+    <dimen name="margin_vertical">4dp</dimen>
+    <dimen name="padding_internal">16dp</dimen>
+    
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_corner_radius">8dp</dimen>
+    
+    <dimen name="app_bar_title_size">20sp</dimen>
+    <dimen name="section_header_size">12sp</dimen>
+    <dimen name="body_text_size">14sp</dimen>
+    <dimen name="secondary_text_size">12sp</dimen>
+</resources>

@@ -1,0 +1,26 @@
+[
+    {
+        "merged": "com.phonebackup.app-mergeDebugResources-54:/layout/fragment_main.xml",
+        "source": "com.phonebackup.app-main-57:/layout/fragment_main.xml"
+    },
+    {
+        "merged": "com.phonebackup.app-mergeDebugResources-54:/layout/fragment_login.xml",
+        "source": "com.phonebackup.app-main-57:/layout/fragment_login.xml"
+    },
+    {
+        "merged": "com.phonebackup.app-mergeDebugResources-54:/layout/activity_main.xml",
+        "source": "com.phonebackup.app-main-57:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.phonebackup.app-mergeDebugResources-54:/layout/fragment_backups.xml",
+        "source": "com.phonebackup.app-main-57:/layout/fragment_backups.xml"
+    },
+    {
+        "merged": "com.phonebackup.app-mergeDebugResources-54:/layout/fragment_settings.xml",
+        "source": "com.phonebackup.app-main-57:/layout/fragment_settings.xml"
+    },
+    {
+        "merged": "com.phonebackup.app-mergeDebugResources-54:/layout/item_backup_file.xml",
+        "source": "com.phonebackup.app-main-57:/layout/item_backup_file.xml"
+    }
+]
