@@ -38,11 +38,15 @@ class MainFragment : Fragment() {
             when (pendingPermissionAction) {
                 PendingPermissionAction.EnableAutoBackup -> setupWorkManager(true)
                 PendingPermissionAction.InitialSync -> startInitialSync()
+                PendingPermissionAction.VerifyAutoBackup -> Unit
                 PendingPermissionAction.None -> Unit
             }
         } else {
             Toast.makeText(context, "Permissions required for backup", Toast.LENGTH_SHORT).show()
-            if (pendingPermissionAction == PendingPermissionAction.EnableAutoBackup) {
+            if (
+                pendingPermissionAction == PendingPermissionAction.EnableAutoBackup ||
+                pendingPermissionAction == PendingPermissionAction.VerifyAutoBackup
+            ) {
                 binding.switchAutoBackup.isChecked = false
             }
         }
@@ -77,7 +81,7 @@ class MainFragment : Fragment() {
         if (prefs.isAutoBackupEnabled) {
             val missingPermissions = missingMediaPermissions()
             if (missingPermissions.isNotEmpty()) {
-                pendingPermissionAction = PendingPermissionAction.EnableAutoBackup
+                pendingPermissionAction = PendingPermissionAction.VerifyAutoBackup
                 requestPermissionLauncher.launch(missingPermissions.toTypedArray())
             }
         }
@@ -186,6 +190,7 @@ class MainFragment : Fragment() {
     private enum class PendingPermissionAction {
         None,
         EnableAutoBackup,
-        InitialSync
+        InitialSync,
+        VerifyAutoBackup
     }
 }
