@@ -26,8 +26,9 @@ class BackupRepository(
     suspend fun login(request: LoginRequest): Result<AuthResponse> = withContext(Dispatchers.IO) {
         try {
             val response = apiService.login(request)
-            if (response.isSuccessful && response.body() != null) {
-                Result.success(response.body()!!)
+            val body = response.body()
+            if (response.isSuccessful && body != null) {
+                Result.success(body)
             } else {
                 Result.failure(Exception("Login failed: ${response.code()}"))
             }
@@ -53,8 +54,9 @@ class BackupRepository(
         try {
             val multipartBody = file.asMultipartBody()
             val response = apiService.uploadFile(multipartBody)
-            if (response.isSuccessful) {
-                Result.success(response.body()?.filename ?: "")
+            val body = response.body()
+            if (response.isSuccessful && body != null) {
+                Result.success(body.filename)
             } else {
                 Result.failure(Exception("Upload failed: ${response.code()}"))
             }
@@ -85,8 +87,18 @@ class BackupRepository(
         }
     }
     
-    suspend fun downloadFile(filename: String): Response<ResponseBody> = withContext(Dispatchers.IO) {
-        apiService.downloadFile(filename)
+    suspend fun downloadFile(filename: String): Result<ResponseBody> = withContext(Dispatchers.IO) {
+        try {
+            val response = apiService.downloadFile(filename)
+            val body = response.body()
+            if (response.isSuccessful && body != null) {
+                Result.success(body)
+            } else {
+                Result.failure(Exception("Download failed: ${response.code()}"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
     }
 
     private fun File.asMultipartBody(): MultipartBody {

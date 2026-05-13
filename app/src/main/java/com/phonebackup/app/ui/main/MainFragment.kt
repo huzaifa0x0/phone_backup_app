@@ -29,16 +29,24 @@ class MainFragment : Fragment() {
     private var _binding: FragmentMainBinding? = null
     private val binding get() = _binding!!
     private lateinit var prefs: BackupPreferences
+    private var pendingPermissionAction = PendingPermissionAction.None
 
     private val requestPermissionLauncher = registerForActivityResult(
         ActivityResultContracts.RequestMultiplePermissions()
     ) { permissions ->
         if (permissions.values.all { it }) {
-            setupWorkManager(true)
+            when (pendingPermissionAction) {
+                PendingPermissionAction.EnableAutoBackup -> setupWorkManager(true)
+                PendingPermissionAction.InitialSync -> startInitialSync()
+                PendingPermissionAction.None -> Unit
+            }
         } else {
             Toast.makeText(context, "Permissions required for backup", Toast.LENGTH_SHORT).show()
-            binding.switchAutoBackup.isChecked = false
+            if (pendingPermissionAction == PendingPermissionAction.EnableAutoBackup) {
+                binding.switchAutoBackup.isChecked = false
+            }
         }
+        pendingPermissionAction = PendingPermissionAction.None
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
@@ -69,28 +77,18 @@ class MainFragment : Fragment() {
 
         binding.switchAutoBackup.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
-                checkPermissionsAndStart()
+                checkPermissionsAndRun(PendingPermissionAction.EnableAutoBackup)
             } else {
                 setupWorkManager(false)
             }
         }
 
         binding.btnInitialSync.setOnClickListener {
-            // Run a one-time immediate sync
-            val constraints = Constraints.Builder()
-                .setRequiredNetworkType(NetworkType.CONNECTED)
-                .build()
-
-            val syncWork = OneTimeWorkRequestBuilder<AutoBackupWorker>()
-                .setConstraints(constraints)
-                .build()
-
-            WorkManager.getInstance(requireContext()).enqueue(syncWork)
-            Toast.makeText(context, "Initial Sync Started", Toast.LENGTH_SHORT).show()
+            checkPermissionsAndRun(PendingPermissionAction.InitialSync)
         }
     }
 
-    private fun checkPermissionsAndStart() {
+    private fun checkPermissionsAndRun(action: PendingPermissionAction) {
         val requiredPermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             arrayOf(Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO)
         } else {
@@ -102,10 +100,28 @@ class MainFragment : Fragment() {
         }
 
         if (missingPermissions.isEmpty()) {
-            setupWorkManager(true)
+            when (action) {
+                PendingPermissionAction.EnableAutoBackup -> setupWorkManager(true)
+                PendingPermissionAction.InitialSync -> startInitialSync()
+                PendingPermissionAction.None -> Unit
+            }
         } else {
+            pendingPermissionAction = action
             requestPermissionLauncher.launch(missingPermissions.toTypedArray())
         }
+    }
+
+    private fun startInitialSync() {
+        val constraints = Constraints.Builder()
+            .setRequiredNetworkType(NetworkType.CONNECTED)
+            .build()
+
+        val syncWork = OneTimeWorkRequestBuilder<AutoBackupWorker>()
+            .setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(requireContext()).enqueue(syncWork)
+        Toast.makeText(context, "Initial Sync Started", Toast.LENGTH_SHORT).show()
     }
 
     private fun setupWorkManager(enable: Boolean) {
@@ -145,5 +161,11 @@ class MainFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private enum class PendingPermissionAction {
+        None,
+        EnableAutoBackup,
+        InitialSync
     }
 }
