@@ -4,6 +4,7 @@ import android.content.Context
 import android.net.nsd.NsdManager
 import android.net.nsd.NsdServiceInfo
 import com.phonebackup.app.data.prefs.BackupPreferences
+import com.phonebackup.app.util.normalizeServerUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.TimeoutCancellationException
 import kotlinx.coroutines.suspendCancellableCoroutine
@@ -69,16 +70,6 @@ class ConnectionManager(private val prefs: BackupPreferences) {
         lastResolutionTime = System.currentTimeMillis()
     }
 
-    private fun normalizeServerUrl(rawUrl: String): String {
-        val trimmed = rawUrl.trim()
-        if (trimmed.isEmpty()) return trimmed
-        val withScheme = if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
-            trimmed
-        } else {
-            "https://$trimmed"
-        }
-        return if (withScheme.endsWith("/")) withScheme.dropLast(1) else withScheme
-    }
 
     private suspend fun discoverMdnsService(nsdManager: NsdManager): String = suspendCancellableCoroutine { cont ->
         lateinit var listener: NsdManager.DiscoveryListener

@@ -75,7 +75,11 @@ class MainFragment : Fragment() {
         binding.switchAutoBackup.isChecked = prefs.isAutoBackupEnabled
         updateStatusText()
         if (prefs.isAutoBackupEnabled) {
-            checkPermissionsAndRun(PendingPermissionAction.EnableAutoBackup)
+            val missingPermissions = missingMediaPermissions()
+            if (missingPermissions.isNotEmpty()) {
+                pendingPermissionAction = PendingPermissionAction.EnableAutoBackup
+                requestPermissionLauncher.launch(missingPermissions.toTypedArray())
+            }
         }
 
         binding.switchAutoBackup.setOnCheckedChangeListener { _, isChecked ->
@@ -92,26 +96,7 @@ class MainFragment : Fragment() {
     }
 
     private fun checkPermissionsAndRun(action: PendingPermissionAction) {
-        val requiredPermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            val permissions = mutableListOf<String>()
-            if (prefs.backupPhotos) {
-                permissions += Manifest.permission.READ_MEDIA_IMAGES
-            }
-            if (prefs.backupVideos) {
-                permissions += Manifest.permission.READ_MEDIA_VIDEO
-            }
-            permissions.toTypedArray()
-        } else {
-            if (prefs.backupPhotos || prefs.backupVideos) {
-                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
-            } else {
-                emptyArray()
-            }
-        }
-
-        val missingPermissions = requiredPermissions.filter {
-            ContextCompat.checkSelfPermission(requireContext(), it) != PackageManager.PERMISSION_GRANTED
-        }
+        val missingPermissions = missingMediaPermissions()
 
         if (missingPermissions.isEmpty()) {
             when (action) {
@@ -122,6 +107,27 @@ class MainFragment : Fragment() {
         } else {
             pendingPermissionAction = action
             requestPermissionLauncher.launch(missingPermissions.toTypedArray())
+        }
+    }
+
+    private fun missingMediaPermissions(): List<String> {
+        return requiredMediaPermissions().filter {
+            ContextCompat.checkSelfPermission(requireContext(), it) != PackageManager.PERMISSION_GRANTED
+        }
+    }
+
+    private fun requiredMediaPermissions(): List<String> {
+        if (!prefs.backupPhotos && !prefs.backupVideos) {
+            return emptyList()
+        }
+
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            buildList {
+                if (prefs.backupPhotos) add(Manifest.permission.READ_MEDIA_IMAGES)
+                if (prefs.backupVideos) add(Manifest.permission.READ_MEDIA_VIDEO)
+            }
+        } else {
+            listOf(Manifest.permission.READ_EXTERNAL_STORAGE)
         }
     }
 

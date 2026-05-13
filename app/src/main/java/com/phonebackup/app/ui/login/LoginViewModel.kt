@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.phonebackup.app.data.model.LoginRequest
 import com.phonebackup.app.data.prefs.BackupPreferences
 import com.phonebackup.app.data.repository.BackupRepository
+import com.phonebackup.app.util.normalizeServerUrl
 import kotlinx.coroutines.launch
 
 class LoginViewModel(
@@ -63,15 +64,6 @@ class LoginViewModel(
         _loginState.value = LoginState.LoggedOut
     }
 
-    private fun normalizeServerUrl(rawUrl: String): String {
-        val trimmed = rawUrl.trim()
-        val withScheme = if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
-            trimmed
-        } else {
-            "https://$trimmed"
-        }
-        return if (withScheme.endsWith("/")) withScheme.dropLast(1) else withScheme
-    }
 
     sealed class LoginState {
         object Loading : LoginState()
