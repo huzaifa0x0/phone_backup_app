@@ -18,7 +18,7 @@ class LoginViewModel(
     val loginState: LiveData<LoginState> = _loginState
 
     init {
-        // Auto-login if token exists
+        // If a valid token already exists, skip straight to main screen
         if (!prefs.token.isNullOrEmpty()) {
             _loginState.value = LoginState.Success
         }
@@ -31,25 +31,43 @@ class LoginViewModel(
         }
 
         _loginState.value = LoginState.Loading
-        
-        // Save the fallback URL
+
+        // Normalize server URL (strip trailing slash)
         prefs.serverUrl = if (serverUrl.endsWith("/")) serverUrl.dropLast(1) else serverUrl
 
         viewModelScope.launch {
             val result = repository.login(LoginRequest(username, password))
-            result.onSuccess { authResponse ->
-                prefs.token = authResponse.token
-                prefs.username = username
-                _loginState.value = LoginState.Success
-            }.onFailure { error ->
-                _loginState.value = LoginState.Error(error.message ?: "Login Failed")
-            }
+            result.fold(
+                onSuccess = { authResponse ->
+                    // Persist token and username for all future requests
+                    prefs.token = authResponse.token
+                    prefs.username = authResponse.username
+                    _loginState.value = LoginState.Success
+                },
+                onFailure = { e ->
+                    _loginState.value = LoginState.Error(
+                        when {
+                            e.message?.contains("401") == true -> "Invalid username or password"
+                            e.message?.contains("Unable to resolve") == true ||
+                            e.message?.contains("failed to connect") == true ->
+                                "Cannot reach server. Check the URL and your connection."
+                            else -> "Login failed: ${e.message}"
+                        }
+                    )
+                }
+            )
         }
+    }
+
+    fun logout() {
+        prefs.clearCredentials()
+        _loginState.value = LoginState.LoggedOut
     }
 
     sealed class LoginState {
         object Loading : LoginState()
         object Success : LoginState()
+        object LoggedOut : LoginState()
         data class Error(val message: String) : LoginState()
     }
 }
