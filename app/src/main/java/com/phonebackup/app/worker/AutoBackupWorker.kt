@@ -24,8 +24,7 @@ class AutoBackupWorker(
         if (prefs.token.isNullOrEmpty()) return Result.failure()
 
         val connectionManager = ConnectionManager(prefs)
-        val apiService = ApiClient.apiService
-            ?: ApiClient.buildService(applicationContext, prefs, connectionManager)
+        val apiService = ApiClient.buildService(applicationContext, prefs, connectionManager)
         val repository = BackupRepository(apiService, prefs)
 
         return try {

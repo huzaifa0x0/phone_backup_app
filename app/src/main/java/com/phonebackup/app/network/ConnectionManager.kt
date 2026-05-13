@@ -54,7 +54,7 @@ class ConnectionManager(private val prefs: BackupPreferences) {
         }
 
         // 3. Fallback to Cloudflare URL
-        val fallbackUrl = prefs.serverUrl
+        val fallbackUrl = normalizeServerUrl(prefs.serverUrl)
         if (fallbackUrl.isNotEmpty() && verifyServerHealth(fallbackUrl)) {
             cacheResult(fallbackUrl)
             return@withContext fallbackUrl
@@ -67,6 +67,17 @@ class ConnectionManager(private val prefs: BackupPreferences) {
     private fun cacheResult(url: String) {
         cachedUrl = url
         lastResolutionTime = System.currentTimeMillis()
+    }
+
+    private fun normalizeServerUrl(rawUrl: String): String {
+        val trimmed = rawUrl.trim()
+        if (trimmed.isEmpty()) return trimmed
+        val withScheme = if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+            trimmed
+        } else {
+            "https://$trimmed"
+        }
+        return if (withScheme.endsWith("/")) withScheme.dropLast(1) else withScheme
     }
 
     private suspend fun discoverMdnsService(nsdManager: NsdManager): String = suspendCancellableCoroutine { cont ->

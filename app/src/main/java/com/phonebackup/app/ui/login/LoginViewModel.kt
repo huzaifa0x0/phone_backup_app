@@ -32,8 +32,7 @@ class LoginViewModel(
 
         _loginState.value = LoginState.Loading
 
-        // Normalize server URL (strip trailing slash)
-        prefs.serverUrl = if (serverUrl.endsWith("/")) serverUrl.dropLast(1) else serverUrl
+        prefs.serverUrl = normalizeServerUrl(serverUrl)
 
         viewModelScope.launch {
             val result = repository.login(LoginRequest(username, password))
@@ -62,6 +61,16 @@ class LoginViewModel(
     fun logout() {
         prefs.clearCredentials()
         _loginState.value = LoginState.LoggedOut
+    }
+
+    private fun normalizeServerUrl(rawUrl: String): String {
+        val trimmed = rawUrl.trim()
+        val withScheme = if (trimmed.startsWith("http://") || trimmed.startsWith("https://")) {
+            trimmed
+        } else {
+            "https://$trimmed"
+        }
+        return if (withScheme.endsWith("/")) withScheme.dropLast(1) else withScheme
     }
 
     sealed class LoginState {

@@ -19,6 +19,8 @@ object ApiClient {
 
     @Volatile
     private var cachedApiService: BackupApiService? = null
+    @Volatile
+    private var cachedServerUrl: String? = null
 
     val apiService: BackupApiService?
         get() = cachedApiService
@@ -30,7 +32,12 @@ object ApiClient {
      */
     @Synchronized
     fun buildService(context: Context, prefs: BackupPreferences, connectionManager: ConnectionManager): BackupApiService {
-        cachedApiService?.let { return it }
+        val currentServerUrl = prefs.serverUrl
+        cachedApiService?.let { existing ->
+            if (cachedServerUrl == currentServerUrl) {
+                return existing
+            }
+        }
 
         val dynamicHostInterceptor = Interceptor { chain ->
             var request = chain.request()
@@ -84,6 +91,9 @@ object ApiClient {
             .addConverterFactory(GsonConverterFactory.create())
             .build()
 
-        return retrofit.create(BackupApiService::class.java).also { cachedApiService = it }
+        return retrofit.create(BackupApiService::class.java).also {
+            cachedApiService = it
+            cachedServerUrl = currentServerUrl
+        }
     }
 }

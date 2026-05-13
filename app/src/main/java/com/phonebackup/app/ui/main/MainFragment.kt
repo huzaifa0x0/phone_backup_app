@@ -74,6 +74,9 @@ class MainFragment : Fragment() {
 
         binding.switchAutoBackup.isChecked = prefs.isAutoBackupEnabled
         updateStatusText()
+        if (prefs.isAutoBackupEnabled) {
+            checkPermissionsAndRun(PendingPermissionAction.EnableAutoBackup)
+        }
 
         binding.switchAutoBackup.setOnCheckedChangeListener { _, isChecked ->
             if (isChecked) {
@@ -90,9 +93,20 @@ class MainFragment : Fragment() {
 
     private fun checkPermissionsAndRun(action: PendingPermissionAction) {
         val requiredPermissions = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            arrayOf(Manifest.permission.READ_MEDIA_IMAGES, Manifest.permission.READ_MEDIA_VIDEO)
+            val permissions = mutableListOf<String>()
+            if (prefs.backupPhotos) {
+                permissions += Manifest.permission.READ_MEDIA_IMAGES
+            }
+            if (prefs.backupVideos) {
+                permissions += Manifest.permission.READ_MEDIA_VIDEO
+            }
+            permissions.toTypedArray()
         } else {
-            arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            if (prefs.backupPhotos || prefs.backupVideos) {
+                arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE)
+            } else {
+                emptyArray()
+            }
         }
 
         val missingPermissions = requiredPermissions.filter {
