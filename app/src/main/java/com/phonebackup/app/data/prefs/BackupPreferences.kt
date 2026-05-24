@@ -11,6 +11,7 @@ class BackupPreferences(context: Context) {
 
     companion object {
         const val DEFAULT_SERVER_URL = "https://www.huzaifarafi.me"
+        const val FALLBACK_SERVER_URL = "https://huzaifarafi.me"
     }
 
     private val prefs: SharedPreferences = context.getSharedPreferences("backup_prefs", Context.MODE_PRIVATE)

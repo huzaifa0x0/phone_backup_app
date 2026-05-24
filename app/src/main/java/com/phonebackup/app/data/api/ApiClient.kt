@@ -49,7 +49,13 @@ object ApiClient {
                 val newUrl = request.url.newBuilder()
                     .scheme(newBaseUrl.scheme)
                     .host(newBaseUrl.host)
-                    .port(newBaseUrl.port)
+                    .apply {
+                        if (newBaseUrl.port != -1 &&
+                            !(newBaseUrl.scheme == "https" && newBaseUrl.port == 443) &&
+                            !(newBaseUrl.scheme == "http" && newBaseUrl.port == 80)) {
+                            port(newBaseUrl.port)
+                        }
+                    }
                     .build()
                 request = request.newBuilder().url(newUrl).build()
             }
