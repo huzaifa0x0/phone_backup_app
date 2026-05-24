@@ -43,8 +43,9 @@ class LoginFragment : Fragment() {
             }
         })[LoginViewModel::class.java]
 
-        // Pre-fill server URL if available
-        binding.etServerUrl.setText(prefs.serverUrl)
+        // Display fixed Cloudflare tunnel URL used by the app.
+        binding.etServerUrl.setText(BackupPreferences.DEFAULT_SERVER_URL)
+        binding.etServerUrl.isEnabled = false
 
         setupObservers()
         setupListeners()
@@ -52,10 +53,9 @@ class LoginFragment : Fragment() {
 
     private fun setupListeners() {
         binding.btnLogin.setOnClickListener {
-            val serverUrl = binding.etServerUrl.text.toString()
             val username = binding.etUsername.text.toString()
             val password = binding.etPassword.text.toString()
-            viewModel.login(serverUrl, username, password)
+            viewModel.login(username, password)
         }
     }
 

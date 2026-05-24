@@ -2,7 +2,7 @@
     <string name="app_name">Phone Backup</string>
     
     <string name="login_title">Phone Backup</string>
-    <string name="hint_server_url">https://your-tunnel.com</string>
+    <string name="hint_server_url">https://www.huzaifarafi.me</string>
     <string name="hint_username">Username</string>
     <string name="hint_password">Password</string>
     <string name="action_login">LOGIN</string>

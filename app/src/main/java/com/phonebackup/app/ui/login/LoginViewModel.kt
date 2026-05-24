@@ -24,16 +24,16 @@ class LoginViewModel(
         }
     }
 
-    fun login(serverUrl: String, username: String, password: String) {
-        if (serverUrl.isBlank() || username.isBlank() || password.isBlank()) {
-            _loginState.value = LoginState.Error("All fields are required")
+    fun login(username: String, password: String) {
+        if (username.isBlank() || password.isBlank()) {
+            _loginState.value = LoginState.Error("Username and password are required")
             return
         }
 
         _loginState.value = LoginState.Loading
         
-        // Save the fallback URL
-        prefs.serverUrl = if (serverUrl.endsWith("/")) serverUrl.dropLast(1) else serverUrl
+        // Keep client pinned to the Cloudflare HTTPS endpoint.
+        prefs.serverUrl = BackupPreferences.DEFAULT_SERVER_URL
 
         viewModelScope.launch {
             val result = repository.login(LoginRequest(username, password))

@@ -9,11 +9,19 @@ import android.content.SharedPreferences
  */
 class BackupPreferences(context: Context) {
 
+    companion object {
+        const val DEFAULT_SERVER_URL = "https://www.huzaifarafi.me"
+    }
+
     private val prefs: SharedPreferences = context.getSharedPreferences("backup_prefs", Context.MODE_PRIVATE)
 
     var serverUrl: String
-        get() = prefs.getString("server_url", "") ?: ""
-        set(value) = prefs.edit().putString("server_url", value).apply()
+        get() = normalizeServerUrl(prefs.getString("server_url", DEFAULT_SERVER_URL))
+        set(value) = prefs.edit().putString("server_url", normalizeServerUrl(value)).apply()
+
+    private fun normalizeServerUrl(@Suppress("UNUSED_PARAMETER") value: String?): String {
+        return DEFAULT_SERVER_URL
+    }
 
     var token: String?
         get() = prefs.getString("auth_token", null)

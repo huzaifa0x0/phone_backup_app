@@ -79,7 +79,7 @@ object ApiClient {
 
         // Placeholder base URL; Interceptor overrides this dynamically
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://localhost/") 
+            .baseUrl("https://www.huzaifarafi.me/")
             .client(okHttpClient)
             .addConverterFactory(GsonConverterFactory.create())
             .build()
