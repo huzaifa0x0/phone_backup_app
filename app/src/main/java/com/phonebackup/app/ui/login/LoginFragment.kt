@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import com.phonebackup.app.BuildConfig
 import com.phonebackup.app.data.api.ApiClient
 import com.phonebackup.app.data.prefs.BackupPreferences
 import com.phonebackup.app.data.repository.BackupRepository
@@ -16,6 +17,11 @@ import com.phonebackup.app.databinding.FragmentLoginBinding
 import com.phonebackup.app.network.ConnectionManager
 
 class LoginFragment : Fragment() {
+
+    companion object {
+        private const val TEST_USERNAME = "testuser"
+        private const val TEST_PASSWORD = "testpass"
+    }
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
@@ -43,8 +49,14 @@ class LoginFragment : Fragment() {
             }
         })[LoginViewModel::class.java]
 
-        // Display fixed Cloudflare tunnel URL used by the app.
-        binding.etServerUrl.setText(BackupPreferences.DEFAULT_SERVER_URL)
+        if (BuildConfig.DEBUG) {
+            // Prefill the fixed Cloudflare tunnel URL and test credentials for local testing.
+            binding.etServerUrl.setText(BackupPreferences.DEFAULT_SERVER_URL)
+            binding.etUsername.setText(TEST_USERNAME)
+            binding.etPassword.setText(TEST_PASSWORD)
+        } else {
+            binding.etServerUrl.setText(BackupPreferences.DEFAULT_SERVER_URL)
+        }
         binding.etServerUrl.isEnabled = false
 
         setupObservers()
