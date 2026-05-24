@@ -35,7 +35,7 @@
     <string name="e2e_encryption">End-to-End Encryption</string>
     <string name="e2e_subtitle">Encrypt files locally via AES-256-GCM before upload</string>
     <string name="hint_password">Password</string>
-    <string name="hint_server_url">https://your-tunnel.com</string>
+    <string name="hint_server_url">https://www.huzaifarafi.me</string>
     <string name="hint_username">Username</string>
     <string name="logged_in_as">Logged in as: %1$s</string>
     <string name="login_title">Phone Backup</string>

@@ -15,7 +15,7 @@
         android:textStyle="bold"
         android:textColor="?attr/colorPrimary"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/etServerUrl"
+        app:layout_constraintBottom_toTopOf="@id/etServerUrlLayout"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintVertical_chainStyle="packed" />

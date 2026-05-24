@@ -183,7 +183,7 @@ class MainFragment : Fragment() {
         }
     }
 
-    private fun uploadSelectedFiles(
+    private suspend fun uploadSelectedFiles(
         context: android.content.Context,
         uris: List<android.net.Uri>
     ): UploadSummary {

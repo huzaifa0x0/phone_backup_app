@@ -3255,6 +3255,7 @@ id btnDownload
 id btnInitialSync
 id btnLogin
 id btnLogout
+id btnManualBackup
 id buttonPanel
 id cache_measures
 id callMeasure

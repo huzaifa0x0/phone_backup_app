@@ -26,6 +26,9 @@ public final class FragmentMainBinding implements ViewBinding {
   public final Button btnInitialSync;
 
   @NonNull
+  public final Button btnManualBackup;
+
+  @NonNull
   public final SwitchMaterial switchAutoBackup;
 
   @NonNull
@@ -35,10 +38,11 @@ public final class FragmentMainBinding implements ViewBinding {
   public final TextView tvAutoBackupStatus;
 
   private FragmentMainBinding(@NonNull LinearLayout rootView, @NonNull Button btnInitialSync,
-      @NonNull SwitchMaterial switchAutoBackup, @NonNull MaterialToolbar toolbar,
-      @NonNull TextView tvAutoBackupStatus) {
+      @NonNull Button btnManualBackup, @NonNull SwitchMaterial switchAutoBackup,
+      @NonNull MaterialToolbar toolbar, @NonNull TextView tvAutoBackupStatus) {
     this.rootView = rootView;
     this.btnInitialSync = btnInitialSync;
+    this.btnManualBackup = btnManualBackup;
     this.switchAutoBackup = switchAutoBackup;
     this.toolbar = toolbar;
     this.tvAutoBackupStatus = tvAutoBackupStatus;
@@ -77,6 +81,12 @@ public final class FragmentMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.btnManualBackup;
+      Button btnManualBackup = ViewBindings.findChildViewById(rootView, id);
+      if (btnManualBackup == null) {
+        break missingId;
+      }
+
       id = R.id.switchAutoBackup;
       SwitchMaterial switchAutoBackup = ViewBindings.findChildViewById(rootView, id);
       if (switchAutoBackup == null) {
@@ -95,8 +105,8 @@ public final class FragmentMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new FragmentMainBinding((LinearLayout) rootView, btnInitialSync, switchAutoBackup,
-          toolbar, tvAutoBackupStatus);
+      return new FragmentMainBinding((LinearLayout) rootView, btnInitialSync, btnManualBackup,
+          switchAutoBackup, toolbar, tvAutoBackupStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

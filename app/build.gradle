@@ -61,3 +61,12 @@ dependencies {
     // Security
     implementation "androidx.security:security-crypto:1.1.0-alpha06"
 }
+
+afterEvaluate {
+    tasks.matching { it.name.startsWith("mergeExtDex") }.configureEach { task ->
+        task.doFirst {
+            def variantDir = task.name.endsWith("Release") ? "release" : "debug"
+            file("$buildDir/intermediates/external_file_lib_dex_archives/$variantDir").mkdirs()
+        }
+    }
+}

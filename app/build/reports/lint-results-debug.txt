@@ -1,0 +1,176 @@
+/workspaces/phone_backup_app/app/build.gradle:40: Warning: A newer version of androidx.core:core-ktx than 1.12.0 is available: 1.18.0 [GradleDependency]
+    implementation 'androidx.core:core-ktx:1.12.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/build.gradle:41: Warning: A newer version of androidx.appcompat:appcompat than 1.6.1 is available: 1.7.1 [GradleDependency]
+    implementation 'androidx.appcompat:appcompat:1.6.1'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/build.gradle:42: Warning: A newer version of com.google.android.material:material than 1.11.0 is available: 1.14.0 [GradleDependency]
+    implementation 'com.google.android.material:material:1.11.0'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/build.gradle:43: Warning: A newer version of androidx.constraintlayout:constraintlayout than 2.1.4 is available: 2.2.1 [GradleDependency]
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/build.gradle:47: Warning: A newer version of androidx.navigation:navigation-fragment-ktx than 2.7.7 is available: 2.9.8 [GradleDependency]
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/build.gradle:48: Warning: A newer version of androidx.navigation:navigation-ui-ktx than 2.7.7 is available: 2.9.8 [GradleDependency]
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/build.gradle:59: Warning: A newer version of androidx.work:work-runtime-ktx than 2.9.0 is available: 2.11.2 [GradleDependency]
+    implementation "androidx.work:work-runtime-ktx:2.9.0"
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/build.gradle:62: Warning: A newer version of androidx.security:security-crypto than 1.1.0-alpha06 is available: 1.1.0 [GradleDependency]
+    implementation "androidx.security:security-crypto:1.1.0-alpha06"
+                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "GradleDependency":
+   This detector looks for usages of libraries where the version you are using
+   is not the current stable release. Using older versions is fine, and there
+   are cases where you deliberately want to stick with an older version.
+   However, you may simply not be aware that a more recent version is
+   available, and that is what this lint check helps find.
+
+/workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:20: Warning: The attribute android:allowBackup is deprecated from Android 12 and higher and may be removed in future versions. Consider adding the attribute android:dataExtractionRules specifying an @xml resource which configures cloud backups and device transfers on Android 12 and higher. [DataExtractionRules]
+        android:allowBackup="false"
+                             ~~~~~
+
+   Explanation for issues of type "DataExtractionRules":
+   Before Android 12, the attributes android:allowBackup and
+   android:fullBackupContent were used to configure all forms of backup,
+   including cloud backups, device-to-device transfers and adb backup.
+
+   In Android 12 and higher, these attributes have been deprecated and will
+   only apply to cloud backups. You should instead use the attribute
+   android:dataExtractionRules, specifying an @xml resource that configures
+   which files to back up, for cloud backups and for device-to-device
+   transfers, separately. If your minSdkVersion supports older versions,
+   you'll still want to specify an android:fullBackupContent resource if the
+   default behavior is not right for your app.
+
+   https://developer.android.com/about/versions/12/backup-restore#xml-changes
+   https://goo.gle/DataExtractionRules
+
+/workspaces/phone_backup_app/app/src/main/res/values/dimens.xml:11: Warning: The resource R.dimen.app_bar_title_size appears to be unused [UnusedResources]
+    <dimen name="app_bar_title_size">20sp</dimen>
+           ~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/dimens.xml:12: Warning: The resource R.dimen.section_header_size appears to be unused [UnusedResources]
+    <dimen name="section_header_size">12sp</dimen>
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/dimens.xml:13: Warning: The resource R.dimen.body_text_size appears to be unused [UnusedResources]
+    <dimen name="body_text_size">14sp</dimen>
+           ~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/dimens.xml:14: Warning: The resource R.dimen.secondary_text_size appears to be unused [UnusedResources]
+    <dimen name="secondary_text_size">12sp</dimen>
+           ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:10: Warning: The resource R.string.action_logout appears to be unused [UnusedResources]
+    <string name="action_logout">Logout</string>
+            ~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:13: Warning: The resource R.string.action_refresh appears to be unused [UnusedResources]
+    <string name="action_refresh">Refresh</string>
+            ~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:22: Warning: The resource R.string.action_select appears to be unused [UnusedResources]
+    <string name="action_select">+ SELECT</string>
+            ~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:25: Warning: The resource R.string.title_gallery appears to be unused [UnusedResources]
+    <string name="title_gallery">Selection Gallery</string>
+            ~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:32: Warning: The resource R.string.logged_in_as appears to be unused [UnusedResources]
+    <string name="logged_in_as">Logged in as: %1$s</string>
+            ~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:35: Warning: The resource R.string.e2e_subtitle appears to be unused [UnusedResources]
+    <string name="e2e_subtitle">Encrypt files locally via AES-256-GCM before upload</string>
+            ~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:40: Warning: The resource R.string.section_server appears to be unused [UnusedResources]
+    <string name="section_server">SERVER</string>
+            ~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:41: Warning: The resource R.string.server_url appears to be unused [UnusedResources]
+    <string name="server_url">Server URL</string>
+            ~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:42: Warning: The resource R.string.section_developer appears to be unused [UnusedResources]
+    <string name="section_developer">DEVELOPER / TESTING</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:43: Warning: The resource R.string.test_nightly_backup appears to be unused [UnusedResources]
+    <string name="test_nightly_backup">TEST NIGHTLY BACKUP</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/values/strings.xml:44: Warning: The resource R.string.test_nightly_subtitle appears to be unused [UnusedResources]
+    <string name="test_nightly_subtitle">Immediately triggers AutoBackupWorker</string>
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "UnusedResources":
+   Unused resources make applications larger and slow down builds.
+
+
+   The unused resource check can ignore tests. If you want to include
+   resources that are only referenced from tests, consider packaging them in a
+   test source set instead.
+
+   You can include test sources in the unused resource check by setting the
+   system property lint.unused-resources.include-tests =true, and to exclude
+   them (usually for performance reasons), use
+   lint.unused-resources.exclude-tests =true.
+   ,
+
+/workspaces/phone_backup_app/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml:2: Warning: The application adaptive icon is missing a monochrome tag [MonochromeLauncherIcon]
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+^
+/workspaces/phone_backup_app/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml:2: Warning: The application adaptive roundIcon is missing a monochrome tag [MonochromeLauncherIcon]
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+^
+
+   Explanation for issues of type "MonochromeLauncherIcon":
+   If android:roundIcon and android:icon are both in your manifest, you must
+   either remove the reference to android:roundIcon if it is not needed; or,
+   supply the monochrome icon in the drawable defined by the android:roundIcon
+   and android:icon attribute.
+
+   For example, if android:roundIcon and android:icon are both in the
+   manifest, a launcher might choose to use android:roundIcon over
+   android:icon to display the adaptive app icon. Therefore, your themed
+   application iconwill not show if your monochrome attribute is not also
+   specified in android:roundIcon.
+
+/workspaces/phone_backup_app/app/src/main/res/layout/item_backup_file.xml:18: Warning: Missing contentDescription attribute on image [ContentDescription]
+        <ImageView
+         ~~~~~~~~~
+
+   Explanation for issues of type "ContentDescription":
+   Non-textual widgets like ImageViews and ImageButtons should use the
+   contentDescription attribute to specify a textual description of the widget
+   such that screen readers and other accessibility tools can adequately
+   describe the user interface.
+
+   Note that elements in application screens that are purely decorative and do
+   not provide any content or enable a user action should not have
+   accessibility content descriptions. In this case, set their descriptions to
+   @null. If your app's minSdkVersion is 16 or higher, you can instead set
+   these graphical elements' android:importantForAccessibility attributes to
+   no.
+
+   Note that for text fields, you should not set both the hint and the
+   contentDescription attributes since the hint will never be shown. Just set
+   the hint.
+
+   https://developer.android.com/guide/topics/ui/accessibility/apps#special-cases
+
+/workspaces/phone_backup_app/app/src/main/res/layout/fragment_backups.xml:38: Warning: Hardcoded string "No backups found on server.", should use @string resource [HardcodedText]
+            android:text="No backups found on server."
+            ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/workspaces/phone_backup_app/app/src/main/res/layout/fragment_main.xml:47: Warning: Hardcoded string "Enable Nightly Backup", should use @string resource [HardcodedText]
+                android:text="Enable Nightly Backup" />
+                ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+   Explanation for issues of type "HardcodedText":
+   Hardcoding text attributes directly in layout files is bad for several
+   reasons:
+
+   * When creating configuration variations (for example for landscape or
+   portrait) you have to repeat the actual text (and keep it up to date when
+   making changes)
+
+   * The application cannot be translated to other languages by just adding
+   new translations for existing string resources.
+
+   There are quickfixes to automatically extract this hardcoded string into a
+   resource lookup.
+
+0 errors, 29 warnings

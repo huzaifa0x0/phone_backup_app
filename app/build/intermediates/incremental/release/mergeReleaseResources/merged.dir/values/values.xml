@@ -2045,7 +2045,7 @@
     <string name="fab_transformation_sheet_behavior" translatable="false">com.google.android.material.transformation.FabTransformationSheetBehavior</string>
     <string name="hide_bottom_view_on_scroll_behavior" translatable="false">com.google.android.material.behavior.HideBottomViewOnScrollBehavior</string>
     <string name="hint_password">Password</string>
-    <string name="hint_server_url">https://your-tunnel.com</string>
+    <string name="hint_server_url">https://www.huzaifarafi.me</string>
     <string name="hint_username">Username</string>
     <string description="Content description for an icon that appears in the title area of a dialog" name="icon_content_description">Dialog Icon</string>
     <string name="item_view_role_description">Tab</string>

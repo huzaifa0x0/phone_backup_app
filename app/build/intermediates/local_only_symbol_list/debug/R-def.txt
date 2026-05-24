@@ -32,6 +32,7 @@ id btnDownload
 id btnInitialSync
 id btnLogin
 id btnLogout
+id btnManualBackup
 id etPassword
 id etPasswordLayout
 id etServerUrl
