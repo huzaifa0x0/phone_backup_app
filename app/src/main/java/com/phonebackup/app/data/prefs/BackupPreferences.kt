@@ -59,6 +59,19 @@ class BackupPreferences(context: Context) {
         get() = prefs.getBoolean("backup_videos", false)
         set(value) = prefs.edit().putBoolean("backup_videos", value).apply()
 
+    var uploadedFiles: Set<String>
+        get() = prefs.getStringSet("uploaded_files", emptySet())?.toSet() ?: emptySet()
+        set(value) = prefs.edit().putStringSet("uploaded_files", value).apply()
+
+    fun isFileUploaded(filename: String): Boolean = uploadedFiles.contains(filename)
+
+    fun addUploadedFile(filename: String) {
+        val updated = uploadedFiles.toMutableSet()
+        if (updated.add(filename)) {
+            uploadedFiles = updated
+        }
+    }
+
     /**
      * Clears user credentials on logout.
      */
