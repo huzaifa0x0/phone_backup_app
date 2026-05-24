@@ -91,15 +91,27 @@ class ConnectionManager(private val prefs: BackupPreferences) {
             override fun onServiceLost(service: NsdServiceInfo) {}
             override fun onDiscoveryStopped(serviceType: String) {}
             override fun onStartDiscoveryFailed(serviceType: String, errorCode: Int) {
-                if (cont.isActive) cont.resumeWith(Result.failure(Exception("Discovery failed")))
-                nsdManager.stopServiceDiscovery(this)
+                if (cont.isActive) cont.resumeWith(Result.failure(Exception("Discovery failed: $errorCode")))
+                try {
+                    nsdManager.stopServiceDiscovery(this)
+                } catch (e: Exception) {
+                    // Ignore if discovery wasn't started
+                }
             }
             override fun onStopDiscoveryFailed(serviceType: String, errorCode: Int) {
-                nsdManager.stopServiceDiscovery(this)
+                try {
+                    nsdManager.stopServiceDiscovery(this)
+                } catch (e: Exception) {
+                    // Ignore if already stopped
+                }
             }
         }
 
-        nsdManager.discoverServices("_backupapp._tcp.local.", NsdManager.PROTOCOL_DNS_SD, listener)
+        try {
+            nsdManager.discoverServices("_backupapp._tcp.local.", NsdManager.PROTOCOL_DNS_SD, listener)
+        } catch (e: Exception) {
+            if (cont.isActive) cont.resumeWith(Result.failure(e))
+        }
         
         cont.invokeOnCancellation {
             try {
