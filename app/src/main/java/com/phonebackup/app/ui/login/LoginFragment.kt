@@ -9,7 +9,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
-import com.phonebackup.app.BuildConfig
 import com.phonebackup.app.data.api.ApiClient
 import com.phonebackup.app.data.prefs.BackupPreferences
 import com.phonebackup.app.data.repository.BackupRepository
@@ -49,14 +48,10 @@ class LoginFragment : Fragment() {
             }
         })[LoginViewModel::class.java]
 
-        if (BuildConfig.DEBUG) {
-            // Prefill the fixed Cloudflare tunnel URL and test credentials for local testing.
-            binding.etServerUrl.setText(BackupPreferences.DEFAULT_SERVER_URL)
-            binding.etUsername.setText(TEST_USERNAME)
-            binding.etPassword.setText(TEST_PASSWORD)
-        } else {
-            binding.etServerUrl.setText(BackupPreferences.DEFAULT_SERVER_URL)
-        }
+        // Prefill the fixed Cloudflare tunnel URL and test credentials for testing.
+        binding.etServerUrl.setText(BackupPreferences.DEFAULT_SERVER_URL)
+        binding.etUsername.setText(TEST_USERNAME)
+        binding.etPassword.setText(TEST_PASSWORD)
         binding.etServerUrl.isEnabled = false
 
         setupObservers()

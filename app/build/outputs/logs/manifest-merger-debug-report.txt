@@ -1,9 +1,9 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:2:1-39:12
-INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:2:1-39:12
-INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:2:1-39:12
-INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:2:1-39:12
+ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:2:1-40:12
+INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:2:1-40:12
 MERGED from [androidx.databinding:viewbinding:8.2.0] /home/codespace/.gradle/caches/transforms-3/06260dca9c1cac0612374cfaad0e5a37/transformed/viewbinding-8.2.0/AndroidManifest.xml:2:1-7:12
 MERGED from [androidx.work:work-runtime-ktx:2.9.0] /home/codespace/.gradle/caches/transforms-3/1cbaef7f69881dcfbb0afad62df5d1a0/transformed/work-runtime-ktx-2.9.0/AndroidManifest.xml:17:1-22:12
 MERGED from [androidx.work:work-runtime:2.9.0] /home/codespace/.gradle/caches/transforms-3/325f6767ec2a02f277c040c84c2835de/transformed/work-runtime-2.9.0/AndroidManifest.xml:17:1-145:12
@@ -135,8 +135,8 @@ MERGED from [androidx.work:work-runtime:2.9.0] /home/codespace/.gradle/caches/tr
 	android:name
 		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:16:22-78
 application
-ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:18:5-38:19
-INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:18:5-38:19
+ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:18:5-39:19
+INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:18:5-39:19
 MERGED from [androidx.work:work-runtime:2.9.0] /home/codespace/.gradle/caches/transforms-3/325f6767ec2a02f277c040c84c2835de/transformed/work-runtime-2.9.0/AndroidManifest.xml:28:5-143:19
 MERGED from [androidx.work:work-runtime:2.9.0] /home/codespace/.gradle/caches/transforms-3/325f6767ec2a02f277c040c84c2835de/transformed/work-runtime-2.9.0/AndroidManifest.xml:28:5-143:19
 MERGED from [com.google.android.material:material:1.11.0] /home/codespace/.gradle/caches/transforms-3/9ed5f16cbcd27bf9ff2227301560040d/transformed/material-1.11.0/AndroidManifest.xml:22:5-20
@@ -164,39 +164,41 @@ MERGED from [androidx.startup:startup-runtime:1.1.1] /home/codespace/.gradle/cac
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] /home/codespace/.gradle/caches/transforms-3/8775ed491970576126584cf24be3fe11/transformed/core-1.12.0/AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:24:9-35
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:25:9-35
 	android:label
 		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:22:9-41
 	android:roundIcon
-		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:23:9-54
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:24:9-54
 	android:icon
 		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:21:9-43
 	android:allowBackup
 		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:20:9-36
 	android:theme
-		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:25:9-52
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:26:9-52
 	android:networkSecurityConfig
-		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:26:9-69
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:27:9-69
+	android:usesCleartextTraffic
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:23:9-45
 	android:name
 		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:19:9-34
 activity#com.phonebackup.app.MainActivity
-ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:28:9-36:20
+ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:29:9-37:20
 	android:exported
-		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:30:13-36
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:31:13-36
 	android:theme
-		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:31:13-68
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:32:13-68
 	android:name
-		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:29:13-41
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:30:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:32:13-35:29
+ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:33:13-36:29
 action#android.intent.action.MAIN
-ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:33:17-69
+ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:34:17-69
 	android:name
-		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:33:25-66
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:34:25-66
 category#android.intent.category.LAUNCHER
-ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:34:17-77
+ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:35:17-77
 	android:name
-		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:34:27-74
+		ADDED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml:35:27-74
 uses-sdk
 INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from /workspaces/phone_backup_app/app/src/main/AndroidManifest.xml
